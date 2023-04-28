@@ -1,5 +1,5 @@
 {
-  "name": "grammy-vercel",
+  "name": "docnamer-bot",
   "author": "Vladislav Ponomarev <PonomareVlad@users.noreply.github.com> (https://PonomareVlad.ru)",
   "funding": "https://PonomareVlad.ru/donate",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "tunnel": "cloudflared tunnel --url http://localhost:3000"
   },
   "dependencies": {
+    "@grammyjs/parse-mode": "^1.7.1",
     "grammy": "^1.16.0"
   },
   "engines": {
