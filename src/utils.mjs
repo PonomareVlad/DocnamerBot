@@ -1,7 +1,10 @@
 import {InputFile} from "grammy";
+import crypto from "node:crypto";
 import locales from "../l10n.json" assert {type: "json"};
 
 export const fallbackLocale = "en";
+
+export const hash = value => crypto.createHash("sha1").update(value).digest("hex");
 
 export const filterLocale = locale => locale === fallbackLocale ? undefined : locale;
 
@@ -49,5 +52,6 @@ export default {
     getFileURL,
     renameFile,
     locales,
+    hash,
     l10n,
 }
