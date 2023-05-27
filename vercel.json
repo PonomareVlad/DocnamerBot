@@ -1,4 +1,6 @@
 {
+  "buildCommand": "node src/start.mjs",
+  "devCommand": "node src/start.mjs",
   "functions": {
     "api/*": {
       "includeFiles": "l10n.json"

@@ -1,10 +1,14 @@
 {
   "en": {
+    "bot-name": "Docnamer",
     "send-file": "Send me any file (as document)",
-    "send-name": "Send new file name (including extension)"
+    "send-name": "Send new file name (including extension)",
+    "bot-description": "Rename any document or file. \n\nAlso you can set any extension without conversion. \n\nDeveloped by @Ponomarev_Studio"
   },
   "ru": {
+    "bot-name": "Докуменователь",
     "send-file": "Отправьте мне любой файл (как документ)",
-    "send-name": "Отправьте новое имя файла (включая расширение)"
+    "send-name": "Отправьте новое имя файла (включая расширение)",
+    "bot-description": "Переименуйте любой документ или файл. \n\nТакже вы можете заменить расширение файла. \n\nРазработано @Ponomarev_Studio"
   }
 }

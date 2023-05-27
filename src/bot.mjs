@@ -1,26 +1,26 @@
 import {Bot} from "grammy";
+import Utils from "./utils.mjs";
 import {StatelessQuestion} from "@grammyjs/stateless-question";
-import {errorHandler, l10n, renameFile, replyToDocumentFilter, locales} from "./utils.mjs";
 
 const {TELEGRAM_BOT_TOKEN} = process.env;
 
 export const bot = new Bot(TELEGRAM_BOT_TOKEN);
 
-const composer = bot.errorBoundary(errorHandler);
+const composer = bot.errorBoundary(Utils.errorHandler);
 
 const nameQuestion = new StatelessQuestion("name", async (ctx, additionalState) => {
     const signal = AbortSignal.timeout(9_000);
     const {message_id, chat: {id}} = ctx.msg.reply_to_message;
     const {file_id, message_id: reply_to_message_id} = JSON.parse(additionalState);
     const options = {reply_markup: {remove_keyboard: true}, reply_to_message_id};
-    await renameFile(ctx, file_id, ctx.msg.text, options, signal);
+    await Utils.renameFile(ctx, file_id, ctx.msg.text, options, signal);
     await Promise.all([
         ctx.api.deleteMessage(id, message_id, signal),
         ctx.deleteMessage(signal)
     ]);
 });
 
-composer.use(l10n(locales));
+composer.use(Utils.l10n());
 
 composer.use(nameQuestion.middleware());
 
@@ -46,7 +46,7 @@ composer.on(":document", async ctx => {
     return ctx.reply(text, options);
 });
 
-composer.on(":text").filter(replyToDocumentFilter, async ctx => {
+composer.on(":text").filter(Utils.replyToDocumentFilter, async ctx => {
     const {
         document: {
             file_id
@@ -55,7 +55,7 @@ composer.on(":text").filter(replyToDocumentFilter, async ctx => {
     } = ctx.msg.reply_to_message;
     const options = {reply_to_message_id};
     const signal = AbortSignal.timeout(9_000);
-    await renameFile(ctx, file_id, ctx.msg.text, options, signal);
+    await Utils.renameFile(ctx, file_id, ctx.msg.text, options, signal);
     await ctx.deleteMessage(signal);
 });
 
