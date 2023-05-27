@@ -6,7 +6,6 @@
       "includeFiles": "l10n.json"
     }
   },
-  "public": true,
   "github": {
     "silent": true
   }
