@@ -1,4 +1,5 @@
 import {InputFile} from "grammy";
+import locales from "../l10n.json" assert {type: "json"};
 
 export const replyToDocumentFilter = ctx => !!ctx?.msg?.reply_to_message?.document?.file_id;
 
@@ -19,3 +20,13 @@ export function errorHandler({ctx, error}) {
     const text = error?.description || error?.message || message;
     return ctx.reply(text, {reply_to_message_id});
 }
+
+export function l10n(locales = {}, fallback = "en") {
+    return (ctx, next) => {
+        const locale = locales[ctx.from?.language_code] || locales[fallback] || {};
+        ctx.l = key => locale[key] || key;
+        return next();
+    }
+}
+
+export {locales};

@@ -1,6 +1,6 @@
 import {Bot} from "grammy";
 import {StatelessQuestion} from "@grammyjs/stateless-question";
-import {errorHandler, renameFile, replyToDocumentFilter} from "./utils.mjs";
+import {errorHandler, l10n, renameFile, replyToDocumentFilter, locales} from "./utils.mjs";
 
 const {TELEGRAM_BOT_TOKEN} = process.env;
 
@@ -19,6 +19,8 @@ const nameQuestion = new StatelessQuestion("name", async (ctx, additionalState) 
         ctx.deleteMessage(signal)
     ]);
 });
+
+composer.use(l10n(locales));
 
 composer.use(nameQuestion.middleware());
 
@@ -39,9 +41,9 @@ composer.on(":document", async ctx => {
             input_field_placeholder: file_name,
         },
     };
-    const text = `Send new file name including extension`;
     const additionalState = JSON.stringify({file_id, message_id});
-    return ctx.reply(text + nameQuestion.messageSuffixMarkdown(additionalState), options);
+    const text = ctx.l("send-name") + nameQuestion.messageSuffixMarkdown(additionalState);
+    return ctx.reply(text, options);
 });
 
 composer.on(":text").filter(replyToDocumentFilter, async ctx => {
@@ -57,6 +59,6 @@ composer.on(":text").filter(replyToDocumentFilter, async ctx => {
     await ctx.deleteMessage(signal);
 });
 
-composer.on("msg", async ctx => ctx.reply(`Send me any file (as document)`));
+composer.on("msg", async ctx => ctx.reply(ctx.l("send-file")));
 
 export default bot;

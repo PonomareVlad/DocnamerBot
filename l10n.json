@@ -1,0 +1,10 @@
+{
+  "en": {
+    "send-file": "Send me any file (as document)",
+    "send-name": "Send new file name (including extension)"
+  },
+  "ru": {
+    "send-file": "Отправьте мне любой файл (как документ)",
+    "send-name": "Отправьте новое имя файла (включая расширение)"
+  }
+}
